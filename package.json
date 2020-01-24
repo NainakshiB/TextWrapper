@@ -1,0 +1,34 @@
+{
+  "name": "questiontext",
+  "version": "1.0.0",
+  "description": "Text Wrapper",
+  "main": "index.js",
+  "dependencies": {
+    "d3": "3.5.5",
+    "d3-selection": "^1.0.2",
+    "jquery": "3.4.0",
+    "lodash": "4.17.15",
+    "powerbi-models": "1.1.0",
+    "powerbi-visuals-tools": "2.6.0",
+    "powerbi-visuals-utils-formattingutils": "3.1.0",
+    "powerbi-visuals-utils-svgutils": "1.2.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^3.5.36",
+    "@types/jquery": "^3.3.29",
+    "@types/lodash": "4.14.121",
+    "tslint": "^5.20.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "typescript": "next"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\"http://github.com/npm/npm.git\""
+  },
+  "author": "MAQ Software",
+  "license": "ISC"
+}
