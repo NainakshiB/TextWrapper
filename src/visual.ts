@@ -198,7 +198,7 @@ module powerbi.extensibility.visual {
         private dynamicSettings: IDynamicTextSettings;
         private formatter: utils.formatting.IValueFormatter;
         private finalTextContainer: d3.Selection<HTMLElement>;
-        private events: IVisualEventService ;
+        private events: IVisualEventService;
         constructor(options: VisualConstructorOptions) {
             this.target = d3.select(options.element);
             this.target.style({
@@ -297,104 +297,104 @@ module powerbi.extensibility.visual {
         }
 
         public update(options: VisualUpdateOptions): void {
-            this.events.renderingStarted(options);
-            this.updateCount++;
-            this.target.selectAll('.tw_value').remove();
-            const dataView: DataView = this.dataViews = options.dataViews[0];
-            let valueLength: number = 0;
-            const textSettings: ItextSettings = this.getTextSettings(dataView);
-            const errorMessageSettings: IErrorMessageSettings = this.getErrorMessages(dataView);
-            this.dynamicSettings = this.getDynamicTextSettings(dataView);
-            this.staticTextSettings = this.getStaticTextSettings(dataView);
-            let textValDynamicInput: string;
-            let textValStaticInput: string;
-            if (this.updateCount === 1) {
-                textValStaticInput = this.staticTextSettings.postText === '-1' ?
-                    textSettings.postText : this.staticTextSettings.postText;
-            } else {
-                textValStaticInput = this.staticTextSettings.postText === '-1' ?
-                    '' : this.staticTextSettings.postText;
-            }
-            this.staticTextSettings.postText = textValStaticInput;
-            const valuesContainer: IDynamicTextContainer = this.getDynamicTextValue(dataView);
-            textValDynamicInput = valuesContainer.textContainer;
-            const textFontSize: number = textSettings.fontSize;
-            const dynamictextFontFamily: string = this.dynamicSettings.fontFamily;
-            const staticTextFontFamily: string = this.staticTextSettings.fontFamily;
-            const dynfontStyleClass: string = this.getFontStyleClassName(this.dynamicSettings);
-            const staticfontStyleClass: string = this.getFontStyleClassName(this.staticTextSettings);
-            let textValStatic: string = '';
-            let textValDynamic: string = '';
-            valueLength = valuesContainer.lengthContainer;
-            if (valueLength === 1) {
-                const original: d3.Selection<HTMLElement> = this.target.append('div')
-                    .classed('tw_value tw_finalText', true)
-                    .style('font-size', this.pointToPixel(textFontSize))
-                    .style('color', textSettings.color);
-                textValStatic = textValStaticInput;
-                textValDynamic = textValDynamicInput;
-            } else if (valueLength > 1) {
-                const errMsg: string = 'Query returned more than one row, please filter data to return one row';
-                const original: d3.Selection<HTMLElement> = this.target.append('div')
-                    .classed('tw_value errormsg', true)
-                    .text(errMsg)
-                    .attr('title', errMsg)
-                    .style('font-size', this.pointToPixel(textSettings.fontSize))
-                    .style('font-family', 'Segoe UI Semibold')
-                    .style('color', '#777777');
-            } else if (valueLength === 0) {
-                const errMsg: string = errorMessageSettings.nullValue;
-                const original: d3.Selection<HTMLElement> = this.target.append('div')
-                    .classed('tw_value errormsg', true)
-                    .text(errMsg)
-                    .attr('title', errMsg)
-                    .style('font-size', this.pointToPixel(textSettings.fontSize))
-                    .style('font-family', 'Segoe UI Semibold')
-                    .style('color', '#777777');
-            }
-            this.finalTextContainer = d3.select('.tw_finalText').style('text-align', textSettings.alignment);
-            let colonText: string;
-            colonText = ': ';
-            if (textValStatic !== '' && this.staticTextSettings.showColon) {
-                if (this.staticTextSettings.textPosition === 'suffix') {
-                    this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
-                                 this.dynamicSettings.backgroundcolor);
-                    this.colonText(colonText);
-                    this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
-                                 this.staticTextSettings.backgroundcolor);
-                    if (this.dynamicSettings.italicStyle) {
-                                    $('.dynamicpluscolon').css('padding-left', '4px');
+            try {
+                this.events.renderingStarted(options);
+                this.updateCount++;
+                this.target.selectAll('.tw_value').remove();
+                const dataView: DataView = this.dataViews = options.dataViews[0];
+                let valueLength: number = 0;
+                const textSettings: ItextSettings = this.getTextSettings(dataView);
+                const errorMessageSettings: IErrorMessageSettings = this.getErrorMessages(dataView);
+                this.dynamicSettings = this.getDynamicTextSettings(dataView);
+                this.staticTextSettings = this.getStaticTextSettings(dataView);
+                let textValDynamicInput: string;
+                let textValStaticInput: string;
+                if (this.updateCount === 1) {
+                    textValStaticInput = this.staticTextSettings.postText === '-1' ?
+                        textSettings.postText : this.staticTextSettings.postText;
+                } else {
+                    textValStaticInput = this.staticTextSettings.postText === '-1' ?
+                        '' : this.staticTextSettings.postText;
+                }
+                this.staticTextSettings.postText = textValStaticInput;
+                const valuesContainer: IDynamicTextContainer = this.getDynamicTextValue(dataView);
+                textValDynamicInput = valuesContainer.textContainer;
+                const textFontSize: number = textSettings.fontSize; const dynamictextFontFamily: string = this.dynamicSettings.fontFamily;
+                const staticTextFontFamily: string = this.staticTextSettings.fontFamily;
+                const dynfontStyleClass: string = this.getFontStyleClassName(this.dynamicSettings);
+                const staticfontStyleClass: string = this.getFontStyleClassName(this.staticTextSettings);
+                let textValStatic: string = ''; let textValDynamic: string = '';
+                valueLength = valuesContainer.lengthContainer;
+                if (valueLength === 1) {
+                    const original: d3.Selection<HTMLElement> = this.target.append('div')
+                        .classed('tw_value tw_finalText', true)
+                        .style('font-size', this.pointToPixel(textFontSize))
+                        .style('color', textSettings.color);
+                    textValStatic = textValStaticInput;
+                    textValDynamic = textValDynamicInput;
+                } else if (valueLength > 1) {
+                    const errMsg: string = 'Query returned more than one row, please filter data to return one row';
+                    const original: d3.Selection<HTMLElement> = this.target.append('div')
+                        .classed('tw_value errormsg', true)
+                        .text(errMsg)
+                        .attr('title', errMsg)
+                        .style('font-size', this.pointToPixel(textSettings.fontSize))
+                        .style('font-family', 'Segoe UI Semibold')
+                        .style('color', '#777777');
+                } else if (valueLength === 0) {
+                    const errMsg: string = errorMessageSettings.nullValue;
+                    const original: d3.Selection<HTMLElement> = this.target.append('div')
+                        .classed('tw_value errormsg', true)
+                        .text(errMsg)
+                        .attr('title', errMsg)
+                        .style('font-size', this.pointToPixel(textSettings.fontSize))
+                        .style('font-family', 'Segoe UI Semibold')
+                        .style('color', '#777777');
+                }
+                this.finalTextContainer = d3.select('.tw_finalText').style('text-align', textSettings.alignment);
+                let colonText: string;
+                colonText = ': ';
+                if (textValStatic !== '' && this.staticTextSettings.showColon) {
+                    if (this.staticTextSettings.textPosition === 'suffix') {
+                        this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
+                            this.dynamicSettings.backgroundcolor);
+                        this.colonText(colonText);
+                        this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
+                            this.staticTextSettings.backgroundcolor);
+                        if (this.dynamicSettings.italicStyle) {
+                            $('.dynamicpluscolon').css('padding-left', '4px');
+                        }
+                    } else {
+                        this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
+                            this.staticTextSettings.backgroundcolor);
+                        this.colonText(colonText);
+                        this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
+                            this.dynamicSettings.backgroundcolor);
+                        if (this.staticTextSettings.italicStyle) {
+                            $('.dynamicpluscolon').css('padding-left', '4px');
+                        }
                     }
-                } else {
-                    this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
-                                 this.staticTextSettings.backgroundcolor);
-                    this.colonText(colonText);
-                    this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
-                                 this.dynamicSettings.backgroundcolor);
-                    if ( this.staticTextSettings.italicStyle) {
-                                    $('.dynamicpluscolon').css('padding-left', '4px');
-                                 }
-                }
-            } else if (textValStatic !== '' && !this.staticTextSettings.showColon) {
-                if (this.staticTextSettings.textPosition === 'suffix') {
-                    this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
-                                 this.dynamicSettings.backgroundcolor);
-                    this.addSpace();
-                    this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
-                                 this.staticTextSettings.backgroundcolor);
+                } else if (textValStatic !== '' && !this.staticTextSettings.showColon) {
+                    if (this.staticTextSettings.textPosition === 'suffix') {
+                        this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
+                            this.dynamicSettings.backgroundcolor);
+                        this.addSpace();
+                        this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
+                            this.staticTextSettings.backgroundcolor);
 
-                } else {
-                    this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
-                                 this.staticTextSettings.backgroundcolor);
-                    this.addSpace();
+                    } else {
+                        this.getText(textValStatic, staticfontStyleClass, textFontSize, staticTextFontFamily,
+                            this.staticTextSettings.backgroundcolor);
+                        this.addSpace();
+                        this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
+                            this.dynamicSettings.backgroundcolor);
+                    }
+                } else if (textValStatic === '') {
                     this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
-                                 this.dynamicSettings.backgroundcolor);
+                        this.dynamicSettings.backgroundcolor);
                 }
-            } else if (textValStatic === '') {
-                this.getText(textValDynamic, dynfontStyleClass, textFontSize, dynamictextFontFamily,
-                             this.dynamicSettings.backgroundcolor);
-            }
-            this.events.renderingFinished(options);
+                this.events.renderingFinished(options);
+            } catch (exception) { this.events.renderingFailed(options, exception); }
         }
 
         private getText(text: string, fontStyleClass: string, textFontSize: number, textFontFamily: string, backgroundcolor: string): void {
@@ -462,8 +462,8 @@ module powerbi.extensibility.visual {
             objects = dataView.metadata.objects;
 
             errorMessageSetting.nullValue = DataViewObjects.getValue(objects,
-                                                                     questTextProperties.errorMessageSettings.nullValue,
-                                                                     errorMessageSetting.nullValue);
+                questTextProperties.errorMessageSettings.nullValue,
+                errorMessageSetting.nullValue);
 
             return errorMessageSetting;
         }
@@ -500,15 +500,15 @@ module powerbi.extensibility.visual {
             }
             objects = dataView.metadata.objects;
             dynamicSettings.backgroundcolor = DataViewObjects.getFillColor(objects, questTextProperties.dynamicSettings.backgroundcolor,
-                                                                           dynamicSettings.backgroundcolor);
+                dynamicSettings.backgroundcolor);
             dynamicSettings.fontFamily = DataViewObjects.getValue(objects, questTextProperties.dynamicSettings.fontFamily,
-                                                                  dynamicSettings.fontFamily);
+                dynamicSettings.fontFamily);
             dynamicSettings.boldStyle = DataViewObjects.getValue(objects, questTextProperties.dynamicSettings.boldStyle,
-                                                                 dynamicSettings.boldStyle);
+                dynamicSettings.boldStyle);
             dynamicSettings.italicStyle = DataViewObjects.getValue(objects, questTextProperties.dynamicSettings.italicStyle,
-                                                                   dynamicSettings.italicStyle);
+                dynamicSettings.italicStyle);
             dynamicSettings.underlineStyle = DataViewObjects.getValue(objects, questTextProperties.dynamicSettings.underlineStyle,
-                                                                      dynamicSettings.underlineStyle);
+                dynamicSettings.underlineStyle);
 
             return dynamicSettings;
         }
@@ -522,21 +522,21 @@ module powerbi.extensibility.visual {
             }
             objects = dataView.metadata.objects;
             textSetting.showColon = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.showColon,
-                                                             textSetting.showColon);
+                textSetting.showColon);
             textSetting.textPosition = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.textPosition,
-                                                                textSetting.textPosition);
+                textSetting.textPosition);
             textSetting.backgroundcolor = DataViewObjects.getFillColor(objects, questTextProperties.staticTextSettings.backgroundcolor,
-                                                                       textSetting.backgroundcolor);
+                textSetting.backgroundcolor);
             textSetting.fontFamily = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.fontFamily,
-                                                              textSetting.fontFamily);
+                textSetting.fontFamily);
             textSetting.boldStyle = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.boldStyle,
-                                                             textSetting.boldStyle);
+                textSetting.boldStyle);
             textSetting.italicStyle = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.italicStyle,
-                                                               textSetting.italicStyle);
+                textSetting.italicStyle);
             textSetting.underlineStyle = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.underlineStyle,
-                                                                  textSetting.underlineStyle);
+                textSetting.underlineStyle);
             textSetting.postText = DataViewObjects.getValue(objects, questTextProperties.staticTextSettings.postText,
-                                                            textSetting.postText);
+                textSetting.postText);
 
             return textSetting;
         }
@@ -593,12 +593,12 @@ module powerbi.extensibility.visual {
 
                 case 'ErrorMessage':
                     objectEnumeration.push({
-                    objectName: objectName,
-                    selector: null,
-                    properties: {
+                        objectName: objectName,
+                        selector: null,
+                        properties: {
                             nullValue: errorMessageSettings.nullValue
                         }
-                     });
+                    });
                     break;
 
                 default:
