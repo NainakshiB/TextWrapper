@@ -4,7 +4,6 @@
             "displayName": "Field",
             "name": "category",
             "kind": "GroupingOrMeasure"
-           
         }
     ],
     "dataViewMappings": [
@@ -53,14 +52,6 @@
                     },
                     "suppressFormatPainterCopy": true
                 },
-                "postText": {
-                    "displayName": "Text to append",
-                    "type": {
-                        "text": true
-                    },
-                    "suppressFormatPainterCopy": true
-                },
-                
                 "alignment": {
                     "displayName": "Text alignment",
                     "type": {
@@ -77,10 +68,15 @@
                                 "value": "right",
                                 "displayName": "right"
                             }
-                        ] 
+                        ]
+                    }
+                },
+                "lineBreak": {
+                    "displayName": "Custom line break",
+                    "type": {
+                        "text": true
                     }
                 }
-               
             }
         },
         "staticText": {
@@ -92,7 +88,6 @@
                         "bool": true
                     }
                 },
-                
                 "textPosition": {
                     "displayName": "Text position",
                     "type": {
@@ -106,6 +101,12 @@
                                 "displayName": "Suffix"
                             }
                         ]
+                    }
+                },
+                "showTextHiglighted": {
+                    "displayName": "Show text highlighter",
+                    "type": {
+                        "bool": true
                     }
                 },
                 "backgroundcolor": {
@@ -249,9 +250,15 @@
                 }
             }
         },
-        "Settings": {
+        "dynamicSettings": {
             "displayName": "Dynamic text settings",
             "properties": {
+                "showTextHiglighted": {
+                    "displayName": "Show text highlighter",
+                    "type": {
+                        "bool": true
+                    }
+                },
                 "backgroundcolor": {
                     "displayName": "Text highlighter",
                     "type": {
@@ -384,18 +391,17 @@
                         "bool": true
                     }
                 }
-             
             }
         },
-        "ErrorMessage":{
+        "errorMessage": {
             "displayName": "Error message",
-            "properties":{
-                "nullValue":{                    
+            "properties": {
+                "nullValue": {
                     "displayName": "Custom message",
-                    "type":{
-                        "text": true   
+                    "type": {
+                        "text": true
                     }
-                } 
+                }
             }
         }
     }
